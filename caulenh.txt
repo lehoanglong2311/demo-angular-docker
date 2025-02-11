@@ -1,0 +1,3 @@
+-tạo file docker file 
+- build Image : docker build -t demo-angular .   => sau khi build xong sẽ tạo ra images (mục images ) (demo-angular là tên của images)
+- run Image :    docker run -d -p 4200:80 demo-angular   => chạy Image để chạy container sẽ thấy được trong Containers (4200 là cổng local, 80 là cổng trên docker )
