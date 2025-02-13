@@ -1,10 +1,18 @@
-FROM node:alpine  
-WORKDIR /usr/src/app
+FROM node:18.19.1-alpine as build
+WORKDIR /app
 
-COPY .  /usr/src/app
+RUN npm install -g @angular/cli
 
-RUN  npm install -g @angular/cli
+COPY ./package.json .
+RUN npm install 
+RUN cat package-lock.json
+COPY . .
+RUN npm run build
 
-RUN  npm install
+FROM nginx:alpine as runtime
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+COPY --from=build /app/dist/demo-angular-docker/browser /usr/share/nginx/html
+
+EXPOSE 80 443
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]

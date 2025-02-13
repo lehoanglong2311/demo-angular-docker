@@ -6,3 +6,6 @@
 stop container :  docker rm container_id
 rm container : docker rm container_id
 list container : docker ps -a
+Kết nối vào một container đang chạy : docker exec -it <container_id> /bin/sh
+xem nội dung thư mục :ls /usr/share/nginx/html
+xem nội dung file:   cat /usr/share/nginx/html/index.html
